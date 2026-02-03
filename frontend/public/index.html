@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FoodUp - Delicious food delivered to your doorstep. Order online now!">
+    <title>FoodUp - Home | Food Delivery</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 45px; vertical-align: middle;">
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-icons">
+                    <div class="search-icon-nav nav-icon" id="searchToggle">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <a href="menu.html" class="nav-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <a href="auth.html" class="nav-icon" id="userIcon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h1>Delicious Food Delivered to Your Door</h1>
+                <p>Experience the finest flavors from FoodUp. Fresh ingredients, authentic recipes, fast delivery.</p>
+                <div class="hero-buttons">
+                    <a href="menu.html" class="btn btn-primary">Order Now</a>
+                    <a href="about.html" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Dishes Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Dishes</h2>
+            <p class="section-subtitle">Our most popular items that customers love</p>
+
+            <div class="grid grid-3" id="featuredDishes">
+                <!-- Featured dishes will be loaded dynamically -->
+                <div class="spinner"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="menu.html" class="btn btn-primary">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Explore Our Menu</h2>
+            <p class="section-subtitle">Browse through our delicious categories</p>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=400" alt="Appetizers"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Appetizers</h3>
+                        <p class="card-text">Start your meal with our delicious starters and appetizers</p>
+                        <a href="menu.html?category=Appetizers" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400" alt="Main Courses"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Main Courses</h3>
+                        <p class="card-text">Hearty and satisfying main dishes for every taste</p>
+                        <a href="menu.html?category=Main Courses" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=400" alt="Desserts"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Desserts</h3>
+                        <p class="card-text">Sweet treats to end your meal on a perfect note</p>
+                        <a href="menu.html?category=Desserts" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400" alt="Beverages"
+                        class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Beverages</h3>
+                        <p class="card-text">Refreshing drinks to complement your meal</p>
+                        <a href="menu.html?category=Beverages" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Got questions? We've got answers</p>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item"
+                    style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--radius-md); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-dark);">How long does delivery take?</h3>
+                        <i class="fas fa-chevron-down" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="faq-answer" style="display: none; margin-top: 1rem; color: var(--text-light);">
+                        <p>Delivery typically takes 30-45 minutes depending on your location. We'll provide you with an
+                            estimated delivery time when you place your order.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item"
+                    style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--radius-md); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-dark);">What areas do you deliver to?</h3>
+                        <i class="fas fa-chevron-down" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="faq-answer" style="display: none; margin-top: 1rem; color: var(--text-light);">
+                        <p>We deliver within a 10-mile radius of our restaurant. Enter your address at checkout to
+                            confirm delivery availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item"
+                    style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--radius-md); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-dark);">Can I customize my order?</h3>
+                        <i class="fas fa-chevron-down" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="faq-answer" style="display: none; margin-top: 1rem; color: var(--text-light);">
+                        <p>Yes! You can add special instructions or notes when placing your order. We'll do our best to
+                            accommodate your preferences.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item"
+                    style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--radius-md); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-dark);">What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="faq-answer" style="display: none; margin-top: 1rem; color: var(--text-light);">
+                        <p>Currently, we accept cash on delivery. Online payment options will be available soon!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item"
+                    style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--radius-md); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.2rem; color: var(--text-dark);">Do you offer vegetarian options?</h3>
+                        <i class="fas fa-chevron-down" style="color: var(--primary-color);"></i>
+                    </div>
+                    <div class="faq-answer" style="display: none; margin-top: 1rem; color: var(--text-light);">
+                        <p>Absolutely! We have a variety of vegetarian and vegan options available. Check our menu for
+                            details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Real reviews from real customers</p>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div style="color: var(--secondary-color); font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">"The food is absolutely delicious! The chicken platter is my favorite. Fast
+                            delivery and great service every time."</p>
+                        <div style="margin-top: 1rem; font-weight: 600; color: var(--text-dark);">- Sarah Ahmed</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div style="color: var(--secondary-color); font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">"Best food delivery in town! The burgers are incredible and the desserts
+                            are to die for. Highly recommended!"</p>
+                        <div style="margin-top: 1rem; font-weight: 600; color: var(--text-dark);">- Hassan Khan</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div style="color: var(--secondary-color); font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">"Quick delivery, hot food, and amazing taste. FoodUp never disappoints. My
+                            go-to for comfort food!"</p>
+                        <div style="margin-top: 1rem; font-weight: 600; color: var(--text-dark);">- Fatima Ali</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer"
+        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 60px 0 20px;">
+        <div class="container">
+            <div class="footer-content"
+                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                <!-- Brand Section -->
+                <div class="footer-section">
+                    <div style="margin-bottom: 1.5rem;">
+                        <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 50px; margin-bottom: 1rem;">
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.8; margin-bottom: 1.5rem;">Your favorite food, delivered
+                        fast. Quality ingredients, authentic recipes, and exceptional service.</p>
+                    <div class="social-links" style="display: flex; gap: 0.8rem;">
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1877f2, #0c63d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1DA1F2, #0d8bd9); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #FF0000, #cc0000); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Quick Links
+                    </h3>
+                    <ul style="list-style: none; padding: 0; opacity: 0.9; line-height: 2.2;">
+                        <li><a href="index.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li><a href="menu.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Menu</a></li>
+                        <li><a href="about.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">About Us</a>
+                        </li>
+                        <li><a href="contact.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Contact Us
+                    </h3>
+                    <p style="opacity: 0.9; line-height: 2.2;">
+                        📍 123 Food Street, City, Country<br>
+                        📞 +1 234 567 8900<br>
+                        ✉️ info@foodup.com
+                    </p>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Newsletter
+                    </h3>
+                    <p style="opacity: 0.9; margin-bottom: 1rem;">Subscribe to get special offers and updates!</p>
+                    <form class="newsletter-form" id="newsletterForm" style="display: flex; gap: 0.5rem;">
+                        <input type="email" placeholder="Your email" class="newsletter-input" required
+                            style="flex: 1; padding: 0.8rem; border-radius: 6px; border: none;">
+                        <button type="submit" class="btn btn-primary"
+                            style="padding: 0.8rem 1.5rem; white-space: nowrap;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom"
+                style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
+                <p style="opacity: 0.8; margin: 0;">© 2024 FoodUp. All rights reserved.</p>
+            </div>
+        </div>
+
+        <style>
+            .footer-content a:hover {
+                color: var(--primary-color) !important;
+            }
+
+            .social-link:hover {
+                transform: translateY(-3px) !important;
+            }
+
+            @media (max-width: 968px) {
+                .footer-content {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .footer-content {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .newsletter-form {
+                    flex-direction: column !important;
+                }
+            }
+        </style>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

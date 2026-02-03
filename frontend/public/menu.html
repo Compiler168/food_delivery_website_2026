@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our full menu at FoodUp. Order your favorite dishes online!">
+    <title>Menu - FoodUp | Food Delivery</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 45px; vertical-align: middle;">
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="menu.html" class="nav-link active">Menu</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-icons">
+                    <a href="menu.html" class="nav-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <a href="auth.html" class="nav-icon" id="userIcon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section
+        style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); padding: 60px 0; text-align: center; color: white;">
+        <div class="container">
+            <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem;">Our Menu</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95;">Fresh ingredients, delicious flavors, delivered to you</p>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search for dishes...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="Appetizers">Appetizers</button>
+                <button class="category-btn" data-category="Main Courses">Main Courses</button>
+                <button class="category-btn" data-category="Desserts">Desserts</button>
+                <button class="category-btn" data-category="Beverages">Beverages</button>
+                <button class="category-btn" data-category="Specials">Specials</button>
+            </div>
+
+            <!-- Menu Items Grid -->
+            <div class="grid grid-3" id="menuItems">
+                <!-- Menu items will be loaded dynamically -->
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar/Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Cart</h2>
+                <button class="modal-close" id="closeCart">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div id="cartSummary"
+                    style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid var(--light-bg);">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem;">
+                        <span>Total:</span>
+                        <span style="color: var(--primary-color);" id="cartTotal">$0.00</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+                </div>
+                <div id="emptyCart" style="text-align: center; padding: 2rem; display: none;">
+                    <i class="fas fa-shopping-cart"
+                        style="font-size: 4rem; color: var(--light-bg); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-light);">Your cart is empty</p>
+                    <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem;">Browse Menu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Checkout</h2>
+                <button class="modal-close" id="closeCheckout">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label class="form-label">Street Address *</label>
+                        <input type="text" class="form-input" name="street" required>
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">City *</label>
+                            <input type="text" class="form-input" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">State *</label>
+                            <input type="text" class="form-input" name="state" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Zip Code *</label>
+                        <input type="text" class="form-input" name="zipCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contact Phone *</label>
+                        <input type="tel" class="form-input" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Order Notes (Optional)</label>
+                        <textarea class="form-textarea" name="notes"
+                            placeholder="Any special instructions..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer"
+        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 60px 0 20px;">
+        <div class="container">
+            <div class="footer-content"
+                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                <!-- Brand Section -->
+                <div class="footer-section">
+                    <div style="margin-bottom: 1.5rem;">
+                        <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 50px; margin-bottom: 1rem;">
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.8; margin-bottom: 1.5rem;">Your favorite food, delivered
+                        fast. Quality ingredients, authentic recipes, and exceptional service.</p>
+                    <div class="social-links" style="display: flex; gap: 0.8rem;">
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1877f2, #0c63d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1DA1F2, #0d8bd9); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #FF0000, #cc0000); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Quick Links
+                    </h3>
+                    <ul style="list-style: none; padding: 0; opacity: 0.9; line-height: 2.2;">
+                        <li><a href="index.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li><a href="menu.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Menu</a></li>
+                        <li><a href="about.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">About Us</a>
+                        </li>
+                        <li><a href="contact.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Contact Us
+                    </h3>
+                    <p style="opacity: 0.9; line-height: 2.2;">
+                        📍 123 Food Street, City, Country<br>
+                        📞 +1 234 567 8900<br>
+                        ✉️ info@foodup.com
+                    </p>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Newsletter
+                    </h3>
+                    <p style="opacity: 0.9; margin-bottom: 1rem;">Subscribe to get special offers and updates!</p>
+                    <form class="newsletter-form" id="newsletterForm" style="display: flex; gap: 0.5rem;">
+                        <input type="email" placeholder="Your email" class="newsletter-input" required
+                            style="flex: 1; padding: 0.8rem; border-radius: 6px; border: none;">
+                        <button type="submit" class="btn btn-primary"
+                            style="padding: 0.8rem 1.5rem; white-space: nowrap;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom"
+                style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
+                <p style="opacity: 0.8; margin: 0;">© 2024 FoodUp. All rights reserved.</p>
+            </div>
+        </div>
+
+        <style>
+            .footer-content a:hover {
+                color: var(--primary-color) !important;
+            }
+
+            .social-link:hover {
+                transform: translateY(-3px) !important;
+            }
+
+            @media (max-width: 968px) {
+                .footer-content {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .footer-content {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .newsletter-form {
+                    flex-direction: column !important;
+                }
+            }
+        </style>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/menu.js"></script>
+</body>
+
+</html>

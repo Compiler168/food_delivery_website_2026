@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management - FoodUp Admin</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-logo">
+                🍽️ FoodUp<br>
+                <span style="font-size: 0.8rem; opacity: 0.7;">Admin Panel</span>
+            </div>
+
+            <ul class="admin-nav">
+                <li class="admin-nav-item">
+                    <a href="index.html" class="admin-nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="menu-management.html" class="admin-nav-link active">
+                        <i class="fas fa-utensils"></i>
+                        <span>Menu Management</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="order-management.html" class="admin-nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="../index.html" class="admin-nav-link">
+                        <i class="fas fa-globe"></i>
+                        <span>View Website</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#" class="admin-nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1 class="admin-title">Menu Management</h1>
+                <button class="btn btn-primary" onclick="showAddItemModal()">
+                    <i class="fas fa-plus"></i> Add New Item
+                </button>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="category-filter" style="margin-bottom: 2rem;">
+                <button class="category-btn active" data-category="all">All Items</button>
+                <button class="category-btn" data-category="Appetizers">Appetizers</button>
+                <button class="category-btn" data-category="Main Courses">Main Courses</button>
+                <button class="category-btn" data-category="Desserts">Desserts</button>
+                <button class="category-btn" data-category="Beverages">Beverages</button>
+                <button class="category-btn" data-category="Specials">Specials</button>
+            </div>
+
+            <!-- Menu Items Table -->
+            <div class="admin-section">
+                <div id="menuItemsTable">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Item Modal -->
+    <div class="modal" id="itemModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add Menu Item</h2>
+                <button class="modal-close" onclick="closeItemModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="itemForm">
+                    <input type="hidden" id="itemId">
+
+                    <div class="form-group">
+                        <label class="form-label">Item Name *</label>
+                        <input type="text" class="form-input" id="itemName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-textarea" id="itemDescription" required></textarea>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Price ($) *</label>
+                            <input type="number" class="form-input" id="itemPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category *</label>
+                            <select class="form-select" id="itemCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Appetizers">Appetizers</option>
+                                <option value="Main Courses">Main Courses</option>
+                                <option value="Desserts">Desserts</option>
+                                <option value="Beverages">Beverages</option>
+                                <option value="Specials">Specials</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Image URL *</label>
+                        <input type="url" class="form-input" id="itemImage" placeholder="https://example.com/image.jpg"
+                            required>
+                        <small style="color: var(--text-light); font-size: 0.85rem;">Use services like Unsplash for food
+                            images</small>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Preparation Time (min)</label>
+                            <input type="number" class="form-input" id="itemPrepTime" value="20" min="5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="itemFeatured" style="width: auto;">
+                                <span>Featured Item</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/api.js"></script>
+    <script>
+        // Check authentication
+        if (!api.isAuthenticated() || !api.isAdmin()) {
+            alert('Unauthorized access');
+            window.location.href = '/auth';
+        }
+
+        let currentCategory = 'all';
+        let allMenuItems = [];
+
+        // Load menu items
+        async function loadMenuItems() {
+            try {
+                const response = await api.getMenuItems();
+
+                if (response.success) {
+                    allMenuItems = response.data;
+                    displayMenuItems(filterItems());
+                }
+            } catch (error) {
+                console.error('Error loading menu:', error);
+            }
+        }
+
+        // Filter items
+        function filterItems() {
+            if (currentCategory === 'all') return allMenuItems;
+            return allMenuItems.filter(item => item.category === currentCategory);
+        }
+
+        // Display menu items
+        function displayMenuItems(items) {
+            const container = document.getElementById('menuItemsTable');
+
+            if (items.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No items found</p>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Featured</th>
+                            <th>Available</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                <td><img src="${item.image}" alt="${item.name}"></td>
+                                <td><strong>${item.name}</strong><br><small style="color: var(--text-light);">${item.description.substring(0, 50)}...</small></td>
+                                <td>${item.category}</td>
+                                <td style="font-weight: 600;">$${item.price.toFixed(2)}</td>
+                                <td>${item.featured ? '<span style="color: var(--success);"><i class="fas fa-star"></i></span>' : ''}</td>
+                                <td>${item.isAvailable ? '<span style="color: var(--success);">✓</span>' : '<span style="color: var(--danger);">✗</span>'}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm" style="background: var(--accent-color); color: white;" onclick='editItem(${JSON.stringify(item)})'>
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm" style="background: var(--danger); color: white;" onclick="deleteItem('${item._id}', '${item.name}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Category filter
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.category;
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayMenuItems(filterItems());
+            });
+        });
+
+        // Show add item modal
+        function showAddItemModal() {
+            document.getElementById('modalTitle').textContent = 'Add Menu Item';
+            document.getElementById('itemForm').reset();
+            document.getElementById('itemId').value = '';
+            document.getElementById('itemModal').classList.add('active');
+        }
+
+        // Edit item
+        function editItem(item) {
+            document.getElementById('modalTitle').textContent = 'Edit Menu Item';
+            document.getElementById('itemId').value = item._id;
+            document.getElementById('itemName').value = item.name;
+            document.getElementById('itemDescription').value = item.description;
+            document.getElementById('itemPrice').value = item.price;
+            document.getElementById('itemCategory').value = item.category;
+            document.getElementById('itemImage').value = item.image;
+            document.getElementById('itemPrepTime').value = item.preparationTime || 20;
+            document.getElementById('itemFeatured').checked = item.featured || false;
+            document.getElementById('itemModal').classList.add('active');
+        }
+
+        // Close modal
+        function closeItemModal() {
+            document.getElementById('itemModal').classList.remove('active');
+        }
+
+        // Form submission
+        document.getElementById('itemForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const itemId = document.getElementById('itemId').value;
+            const itemData = {
+                name: document.getElementById('itemName').value,
+                description: document.getElementById('itemDescription').value,
+                price: parseFloat(document.getElementById('itemPrice').value),
+                category: document.getElementById('itemCategory').value,
+                image: document.getElementById('itemImage').value,
+                preparationTime: parseInt(document.getElementById('itemPrepTime').value),
+                featured: document.getElementById('itemFeatured').checked
+            };
+
+            try {
+                if (itemId) {
+                    await api.updateMenuItem(itemId, itemData);
+                    alert('Item updated successfully!');
+                } else {
+                    await api.createMenuItem(itemData);
+                    alert('Item added successfully!');
+                }
+
+                closeItemModal();
+                loadMenuItems();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Delete item
+        async function deleteItem(id, name) {
+            if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
+
+            try {
+                await api.deleteMenuItem(id);
+                alert('Item deleted successfully!');
+                loadMenuItems();
+            } catch (error) {
+                alert('Error deleting item: ' + error.message);
+            }
+        }
+
+        function logout() {
+            if (confirm('Logout?')) api.logout();
+        }
+
+        // Initialize
+        loadMenuItems();
+    </script>
+</body>
+
+</html>

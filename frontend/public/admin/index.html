@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodUp</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-logo">
+                🍽️ FoodUp<br>
+                <span style="font-size: 0.8rem; opacity: 0.7;">Admin Panel</span>
+            </div>
+
+            <ul class="admin-nav">
+                <li class="admin-nav-item">
+                    <a href="index.html" class="admin-nav-link active">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="menu-management.html" class="admin-nav-link">
+                        <i class="fas fa-utensils"></i>
+                        <span>Menu Management</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="order-management.html" class="admin-nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="../index.html" class="admin-nav-link">
+                        <i class="fas fa-globe"></i>
+                        <span>View Website</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#" class="admin-nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1 class="admin-title">Dashboard</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span id="adminName">Admin</span>
+                    <div
+                        style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div class="stat-icon"
+                        style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Orders</h3>
+                        <p id="totalOrders">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"
+                        style="background: linear-gradient(135deg, var(--success), var(--accent-color));">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Revenue</h3>
+                        <p id="totalRevenue">$0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"
+                        style="background: linear-gradient(135deg, var(--accent-color), var(--primary-color));">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Menu Items</h3>
+                        <p id="totalMenuItems">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"
+                        style="background: linear-gradient(135deg, var(--warning), var(--secondary-color));">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Pending Orders</h3>
+                        <p id="pendingOrders">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Recent Orders</h2>
+                    <a href="order-management.html" class="btn btn-primary btn-sm">View All</a>
+                </div>
+
+                <div id="recentOrders">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- Popular Items -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Menu Overview</h2>
+                    <a href="menu-management.html" class="btn btn-primary btn-sm">Manage Menu</a>
+                </div>
+
+                <div id="menuOverview">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

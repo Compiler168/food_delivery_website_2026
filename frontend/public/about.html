@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about FoodUp - Our story, mission, and team">
+    <title>About Us - FoodUp | Food Delivery</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 45px; vertical-align: middle;">
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="about.html" class="nav-link active">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-icons">
+                    <a href="menu.html" class="nav-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <a href="auth.html" class="nav-icon" id="userIcon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section
+        style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); padding: 60px 0; text-align: center; color: white;">
+        <div class="container">
+            <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem;">About FoodUp</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95;">Passionate about food, dedicated to quality</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="grid grid-2">
+                <div>
+                    <h2 class="section-title" style="text-align: left;">Our Story</h2>
+                    <p style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                        FoodUp was founded in 2024 with a simple vision: to bring authentic, delicious food to
+                        your doorstep. What started as a passion for cooking has grown into a beloved food delivery
+                        service serving our community.
+                    </p>
+                    <p style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Every dish we create is made with love, using fresh ingredients and time-honored recipes. We
+                        believe that great food has the power to bring people together and create memorable moments.
+                    </p>
+                    <p style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8;">
+                        Founded by Majid Iqbal, our kitchen combines traditional cooking methods with modern flavors to
+                        create a unique dining experience that celebrates the art of good food.
+                    </p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600"
+                        alt="Restaurant Kitchen"
+                        style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Mission & Values</h2>
+            <p class="section-subtitle">What drives us every day</p>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="card-title">Fresh Ingredients</h3>
+                        <p class="card-text">We source only the freshest, highest-quality ingredients from trusted
+                            suppliers to ensure every dish meets our standards.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="card-title">Made with Love</h3>
+                        <p class="card-text">Each dish is prepared with care and attention to detail, bringing comfort
+                            and joy to every meal.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3 class="card-title">Fast Delivery</h3>
+                        <p class="card-text">We ensure your food arrives hot, fresh, and on time, every single time you
+                            order.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Why Choose FoodUp?</h2>
+            <p class="section-subtitle">What sets us apart</p>
+
+            <div class="grid grid-2">
+                <div
+                    style="display: flex; gap: 1rem; padding: 1.5rem; background: var(--light-bg); border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; color: var(--primary-color);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Authentic Recipes</h3>
+                        <p style="color: var(--text-light);">Traditional recipes passed down through generations,
+                            perfected over time.</p>
+                    </div>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; padding: 1.5rem; background: var(--light-bg); border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; color: var(--primary-color);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Quality Assurance</h3>
+                        <p style="color: var(--text-light);">Every dish is carefully inspected before delivery to ensure
+                            perfection.</p>
+                    </div>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; padding: 1.5rem; background: var(--light-bg); border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; color: var(--primary-color);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Affordable Pricing</h3>
+                        <p style="color: var(--text-light);">Premium quality at reasonable prices - delicious food
+                            shouldn't break the bank.</p>
+                    </div>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; padding: 1.5rem; background: var(--light-bg); border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; color: var(--primary-color);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Customer Support</h3>
+                        <p style="color: var(--text-light);">Friendly, responsive customer service ready to help with
+                            any questions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section"
+        style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+        <div class="container">
+            <div class="grid grid-4">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem;">500+</div>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Happy Customers</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem;">50+</div>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Menu Items</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem;">1000+</div>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Orders Delivered</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem;">4.8★</div>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Average Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h2 class="section-title">Ready to Order?</h2>
+                <p class="section-subtitle">Experience the taste of FoodUp today!</p>
+                <a href="menu.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 40px;">Browse Our
+                    Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer"
+        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 60px 0 20px;">
+        <div class="container">
+            <div class="footer-content"
+                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                <!-- Brand Section -->
+                <div class="footer-section">
+                    <div style="margin-bottom: 1.5rem;">
+                        <img src="assets/images/logo.png" alt="FoodUp Logo" style="height: 50px; margin-bottom: 1rem;">
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.8; margin-bottom: 1.5rem;">Your favorite food, delivered
+                        fast. Quality ingredients, authentic recipes, and exceptional service.</p>
+                    <div class="social-links" style="display: flex; gap: 0.8rem;">
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1877f2, #0c63d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #1DA1F2, #0d8bd9); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, #FF0000, #cc0000); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Quick Links
+                    </h3>
+                    <ul style="list-style: none; padding: 0; opacity: 0.9; line-height: 2.2;">
+                        <li><a href="index.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Home</a></li>
+                        <li><a href="menu.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Menu</a></li>
+                        <li><a href="about.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">About Us</a>
+                        </li>
+                        <li><a href="contact.html"
+                                style="color: white; text-decoration: none; transition: color 0.3s ease;">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Contact Us
+                    </h3>
+                    <p style="opacity: 0.9; line-height: 2.2;">
+                        📍 123 Food Street, City, Country<br>
+                        📞 +1 234 567 8900<br>
+                        ✉️ info@foodup.com
+                    </p>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Newsletter
+                    </h3>
+                    <p style="opacity: 0.9; margin-bottom: 1rem;">Subscribe to get special offers and updates!</p>
+                    <form class="newsletter-form" id="newsletterForm" style="display: flex; gap: 0.5rem;">
+                        <input type="email" placeholder="Your email" class="newsletter-input" required
+                            style="flex: 1; padding: 0.8rem; border-radius: 6px; border: none;">
+                        <button type="submit" class="btn btn-primary"
+                            style="padding: 0.8rem 1.5rem; white-space: nowrap;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom"
+                style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
+                <p style="opacity: 0.8; margin: 0;">© 2024 FoodUp. All rights reserved.</p>
+            </div>
+        </div>
+
+        <style>
+            .footer-content a:hover {
+                color: var(--primary-color) !important;
+            }
+
+            .social-link:hover {
+                transform: translateY(-3px) !important;
+            }
+
+            @media (max-width: 968px) {
+                .footer-content {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .footer-content {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .newsletter-form {
+                    flex-direction: column !important;
+                }
+            }
+        </style>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

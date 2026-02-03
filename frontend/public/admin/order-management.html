@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management - FoodUp Admin</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-logo">
+                🍽️ FoodUp<br>
+                <span style="font-size: 0.8rem; opacity: 0.7;">Admin Panel</span>
+            </div>
+
+            <ul class="admin-nav">
+                <li class="admin-nav-item">
+                    <a href="index.html" class="admin-nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="menu-management.html" class="admin-nav-link">
+                        <i class="fas fa-utensils"></i>
+                        <span>Menu Management</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="order-management.html" class="admin-nav-link active">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="../index.html" class="admin-nav-link">
+                        <i class="fas fa-globe"></i>
+                        <span>View Website</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#" class="admin-nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1 class="admin-title">Order Management</h1>
+                <button class="btn btn-primary" onclick="loadOrders()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="category-filter" style="margin-bottom: 2rem;">
+                <button class="category-btn active" data-status="all">All Orders</button>
+                <button class="category-btn" data-status="pending">Pending</button>
+                <button class="category-btn" data-status="confirmed">Confirmed</button>
+                <button class="category-btn" data-status="preparing">Preparing</button>
+                <button class="category-btn" data-status="out for delivery">Out for Delivery</button>
+                <button class="category-btn" data-status="delivered">Delivered</button>
+                <button class="category-btn" data-status="cancelled">Cancelled</button>
+            </div>
+
+            <!-- Orders List -->
+            <div id="ordersContainer">
+                <div class="spinner"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2 class="modal-title">Order Details</h2>
+                <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="orderDetails">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/api.js"></script>
+    <script>
+        // Check authentication
+        if (!api.isAuthenticated() || !api.isAdmin()) {
+            alert('Unauthorized access');
+            window.location.href = '/auth';
+        }
+
+        let currentStatus = 'all';
+        let allOrders = [];
+
+        // Load orders
+        async function loadOrders() {
+            try {
+                const response = await api.getAllOrders();
+
+                if (response.success) {
+                    allOrders = response.data;
+                    displayOrders(filterOrders());
+                }
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                document.getElementById('ordersContainer').innerHTML =
+                    '<p style="text-align: center; color: var(--danger); padding: 2rem;">Error loading orders</p>';
+            }
+        }
+
+        // Filter orders
+        function filterOrders() {
+            if (currentStatus === 'all') return allOrders;
+            return allOrders.filter(order => order.status === currentStatus);
+        }
+
+        // Display orders
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No orders found</p>';
+                return;
+            }
+
+            container.innerHTML = orders.map(order => `
+                <div class="admin-section" style="margin-bottom: 1.5rem; cursor: pointer;" onclick='viewOrderDetails(${JSON.stringify(order).replace(/'/g, "&apos;")})'>
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="font-weight: 700; margin-bottom: 0.25rem;">Order #${order._id.slice(-8).toUpperCase()}</h3>
+                            <p style="color: var(--text-light); font-size: 0.9rem;">
+                                ${new Date(order.createdAt).toLocaleString()} | ${order.user?.name || 'Unknown'}
+                            </p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.5rem;">
+                                $${order.totalAmount.toFixed(2)}
+                            </div>
+                            <span class="status-badge status-${order.status.replace(/ /g, '-')}">${order.status}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--light-bg); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem;">
+                        <strong>Items:</strong> ${order.items.length} | 
+                        <strong>Phone:</strong> ${order.contactPhone} | 
+                        <strong>Address:</strong> ${order.deliveryAddress.street}, ${order.deliveryAddress.city}
+                    </div>
+                    
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-sm" style="background: var(--accent-color); color: white;" 
+                                onclick="event.stopPropagation(); updateStatus('${order._id}', 'confirmed')">
+                            Confirm
+                        </button>
+                        <button class="btn btn-sm" style="background: var(--secondary-color); color: white;" 
+                                onclick="event.stopPropagation(); updateStatus('${order._id}', 'preparing')">
+                            Preparing
+                        </button>
+                        <button class="btn btn-sm" style="background: var(--primary-color); color: white;" 
+                                onclick="event.stopPropagation(); updateStatus('${order._id}', 'out for delivery')">
+                            Out for Delivery
+                        </button>
+                        <button class="btn btn-sm" style="background: var(--success); color: white;" 
+                                onclick="event.stopPropagation(); updateStatus('${order._id}', 'delivered')">
+                            Delivered
+                        </button>
+                        <button class="btn btn-sm" style="background: var(--danger); color: white;" 
+                                onclick="event.stopPropagation(); updateStatus('${order._id}', 'cancelled')">
+                            Cancel
+                        </button>
+                        ${order.paymentStatus !== 'paid' ?
+                    `<button class="btn btn-sm" style="background: var(--success); color: white; border: 1px solid white;" 
+                                   onclick="event.stopPropagation(); updatePaymentStatus('${order._id}', 'paid')">
+                               Mark Paid
+                           </button>` :
+                    `<span class="btn btn-sm" style="background: transparent; color: var(--success); border: 1px solid var(--success); cursor: default;">
+                               PAID
+                           </span>`
+                }
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // View order details
+        function viewOrderDetails(order) {
+            const details = document.getElementById('orderDetails');
+
+            details.innerHTML = `
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="font-weight: 700; margin-bottom: 1rem;">Order #${order._id.slice(-8).toUpperCase()}</h3>
+                    <p><strong>Customer:</strong> ${order.user?.name || 'Unknown'}</p>
+                    <p><strong>Email:</strong> ${order.user?.email || 'N/A'}</p>
+                    <p><strong>Phone:</strong> ${order.contactPhone}</p>
+                    <p><strong>Status:</strong> <span class="status-badge status-${order.status.replace(/ /g, '-')}">${order.status}</span></p>
+                    <p><strong>Payment Method:</strong> ${order.paymentMethod || 'COD'}</p>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
+                        <strong>Payment Status:</strong> 
+                        <span class="status-badge status-${order.paymentStatus === 'paid' ? 'delivered' : 'cancelled'}">${order.paymentStatus || 'pending'}</span>
+                        ${order.paymentStatus !== 'paid' ?
+                    `<button class="btn btn-sm" style="background: var(--success); color: white; padding: 2px 8px; font-size: 0.8rem;" onclick="updatePaymentStatus('${order._id}', 'paid')">Mark as Paid</button>` : ''
+                }
+                    </div>
+                    <p style="margin-top: 0.5rem;"><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-weight: 700; margin-bottom: 1rem;">Delivery Address</h4>
+                    <p>${order.deliveryAddress.street}<br>
+                       ${order.deliveryAddress.city}, ${order.deliveryAddress.state} ${order.deliveryAddress.zipCode}</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-weight: 700; margin-bottom: 1rem;">Order Items</h4>
+                    ${order.items.map(item => `
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--light-bg);">
+                            <span>${item.quantity}x ${item.name}</span>
+                            <span style="font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    `).join('')}
+                    <div style="display: flex; justify-content: space-between; padding-top: 1rem; font-size: 1.2rem; font-weight: 700;">
+                        <span>Total:</span>
+                        <span style="color: var(--primary-color);">$${order.totalAmount.toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                ${order.orderNotes ? `
+                    <div>
+                        <h4 style="font-weight: 700; margin-bottom: 0.5rem;">Order Notes</h4>
+                        <p style="background: var(--light-bg); padding: 1rem; border-radius: var(--radius-sm);">${order.orderNotes}</p>
+                    </div>
+                ` : ''}
+            `;
+
+            document.getElementById('orderModal').classList.add('active');
+        }
+
+        // Close order modal
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+        }
+
+        // Update order status
+        async function updateStatus(orderId, status) {
+            try {
+                await api.updateOrderStatus(orderId, status);
+                alert('Order status updated successfully!');
+                loadOrders();
+            } catch (error) {
+                alert('Error updating status: ' + error.message);
+            }
+        }
+
+        // Update payment status
+        async function updatePaymentStatus(orderId, paymentStatus) {
+            if (!confirm('Mark this order as PAID?')) return;
+            try {
+                // We reuse the updateOrderStatus API but send paymentStatus in body (handled by backend update)
+                // Wait, api.js might not support custom body for updateOrderStatus. Let's check api.js or use fetch directly.
+                // Assuming api.updateOrderStatus calls PUT /api/orders/:id/status taking {status} body. 
+                // We need to modify api.js first or make a custom call.
+                // Let's assume for now I will modify api.js next.
+                // Actually to keep it simple, I will modify api.js to accept extra data.
+
+                const response = await fetch(`/api/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                    },
+                    body: JSON.stringify({ paymentStatus })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Payment status updated successfully!');
+                    closeOrderModal();
+                    loadOrders();
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                alert('Error updating payment status: ' + error.message);
+            }
+        }
+
+        // Status filter
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentStatus = btn.dataset.status;
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayOrders(filterOrders());
+            });
+        });
+
+        function logout() {
+            if (confirm('Logout?')) api.logout();
+        }
+
+        // Initialize
+        loadOrders();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadOrders, 30000);
+    </script>
+</body>
+
+</html>
