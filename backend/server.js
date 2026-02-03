@@ -264,10 +264,17 @@ async function seedInitialData() {
     }
 }
 
-// Start server
+// Start server (for local development)
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📱 Frontend: http://localhost:${PORT}`);
-    console.log(`🔌 API: http://localhost:${PORT}/api`);
-});
+
+// Only start server if not running on Vercel
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on port ${PORT}`);
+        console.log(`📱 Frontend: http://localhost:${PORT}`);
+        console.log(`🔌 API: http://localhost:${PORT}/api`);
+    });
+}
+
+// Export for Vercel serverless functions
+module.exports = app;
